@@ -51,6 +51,14 @@ input[type=text], input[type=search], select, textarea {
 input:focus, select:focus, textarea:focus { border-color: var(--primary); background: #fff; }
 .check { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 15px; }
 .check input[type=checkbox] { width: 20px; height: 20px; accent-color: var(--primary); }
+.type-row { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.type-row label {
+  display: flex; align-items: center; gap: 5px;
+  border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px;
+  font-size: 14px; background: #fafbfd; cursor: pointer;
+}
+.type-row label.on { border-color: var(--primary); background: #eef3ff; color: var(--primary-dark); }
+.type-row input { accent-color: var(--primary); }
 .field-label { font-size: 13px; color: var(--muted); margin: 6px 0; }
 .dir-checks { margin-bottom: 10px; }
 .dir-check-item {
@@ -58,6 +66,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
   padding: 6px 8px 6px calc(8px + var(--depth, 0) * 20px); border-radius: 8px;
 }
 .dir-check-item:active { background: var(--bg); }
+.dir-check-item.hl { background: #eceef2; }
 .dir-check-item input { width: 18px; height: 18px; accent-color: var(--primary); flex: none; }
 .dir-check-item input:disabled { opacity: .35; }
 .form-word-node .dir-name { font-weight: 500; }
@@ -93,6 +102,44 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
 .toolbar .btn { flex: 1; font-size: 14px; padding: 10px 8px; }
 .hint { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 8px 0 0; }
 .empty { text-align: center; color: var(--muted); padding: 40px 0; }
+.pager { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 8px; }
+.pager-info { font-size: 13px; color: var(--muted); }
+.pager .btn:disabled { opacity: .35; }
+/* 每页条数选择器已按需求注释掉
+.per-toggle {
+  flex: none; border: 1px solid var(--line); border-radius: 10px;
+  background: #fafbfd; padding: 10px 12px; font-size: 14px; color: var(--text);
+  cursor: pointer; white-space: nowrap; margin-bottom: 0;
+}
+.per-toggle b { color: var(--primary-dark); font-size: 15px; }
+*/
+.per-wheel { display: none; }
+.per-wheel-h {
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
+  padding: 8px 4px; border: 1px solid var(--line); border-radius: 10px;
+  background: #fafbfd;
+}
+.per-wheel-h .pw-item {
+  font-size: 14px; color: var(--muted); padding: 6px 14px;
+  border-radius: 8px; border: 1px solid transparent; cursor: pointer;
+}
+.per-wheel-h .pw-item.cur {
+  color: #fff; background: var(--primary); font-weight: 700;
+}
+.per-wheel-h .pw-item:active { background: #eef3ff; }
+.per-wheel {
+  flex: none; display: flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 10px;
+  background: #fafbfd; overflow: hidden;
+}
+.per-wheel .pw-item {
+  font-size: 13px; color: var(--muted); padding: 2px 8px;
+  border-radius: 6px; cursor: pointer; line-height: 1.4;
+}
+.per-wheel .pw-item.cur {
+  color: #fff; background: var(--primary); font-weight: 700; font-size: 15px;
+}
+.per-wheel .pw-item:active { background: #eef3ff; }
 .tree { font-size: 15px; }
 .tree-node { margin: 2px 0; }
 .dir-row {
@@ -146,9 +193,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
   font-size: 11px; color: var(--primary); background: #eef3ff;
   border-radius: 6px; padding: 2px 6px; flex: none;
 }
-.pager { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 8px; }
-.pager-info { font-size: 13px; color: var(--muted); }
-.pager .btn:disabled { opacity: .35; }
 .mode-card { padding: 10px; }
 .mode-btn {
   width: 100%; border: none; border-radius: 12px; padding: 18px 16px; margin: 6px 0;
@@ -162,8 +206,15 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
 .mode-btn.rand { background: linear-gradient(135deg, #f5a623, #f7bc55); }
 .progress { text-align: center; color: var(--muted); font-size: 14px; padding: 4px 0 10px; }
 .word-card { text-align: center; }
-.word-line { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 14px 0 18px; }
+.word-line { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 14px 0 6px; }
 .big-word { font-size: 30px; font-weight: 700; word-break: break-word; }
+.source-btn {
+  border: none; background: none; color: var(--muted); font-size: 14px;
+  padding: 6px 10px; cursor: pointer; text-decoration: underline;
+}
+.source-btn:active { color: var(--primary); }
+.action-row { display: flex; gap: 10px; justify-content: center; align-items: center; margin: 10px 0; }
+.action-row .btn { flex: none; }
 .tip-box {
   background: #fff8e6; border: 1px solid #f5dfad; border-radius: 10px;
   padding: 10px 12px; margin: 10px 0; font-size: 14px; text-align: left;
@@ -235,15 +286,20 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
     <div class="card">
       <h2 id="wordFormTitle">录入单词</h2>
       <form id="wordForm">
+<!--        <div class="field-label">所属目录 / 所属单词 *（点击 ▸ 展开，默认折叠）</div>-->
+        <div id="wDirs" class="dir-checks"></div>
+        <p class="hint" id="treeHint">普通单词：勾选目录（可多选）。</p>
+
         <input type="text" id="wText" placeholder="单词 *" autocomplete="off" autocapitalize="off">
 
-        <label class="check"><input type="checkbox" id="wIsDerived"> 是派生词</label>
+        <div class="type-row" id="typeRow">
+          <label id="lblDerived"><input type="checkbox" name="wordType" value="derived"> 派生词</label>
+          <label id="lblExtension"><input type="checkbox" name="wordType" value="extension"> 扩展词</label>
+          <label id="lblSynonym"><input type="checkbox" name="wordType" value="synonym"> 同义词</label>
+        </div>
+<!--        <p class="hint" id="typeHint">不选则为普通单词。三者只能选一个。</p>-->
 
-        <div class="field-label">所属目录 / 所属单词 *（点击 ▸ 展开，默认折叠）</div>
-        <div id="wDirs" class="dir-checks"></div>
-<!--        <p class="hint">非派生词：勾选目录（可多选）。派生词：勾选某个非派生词，保存后该派生词会挂到它下面，并自动跟随它的目录。</p>-->
-
-        <div class="field-label">词性与意思 *（至少一条）</div>
+        <div class="field-label">词性与意思 *（至少一条）<span id="senseHint" hidden>（同义词可不填，添加后意思与所属单词相同）</span></div>
         <div id="senseRows"></div>
         <button type="button" class="btn ghost small" id="addSenseBtn">添加词性 / 意思</button>
 
@@ -263,7 +319,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
         <button type="button" class="btn grow" id="importBtn">导入备份</button>
         <input type="file" id="importFile" accept=".json,application/json" hidden>
       </div>
-<!--      <p class="hint">换手机或数据丢失时，先「导出备份」，再到新设备「导入备份」即可完整迁移。建议定期导出一次。</p>-->
+      <p class="hint">换手机或数据丢失时，先「导出备份」，再到新设备「导入备份」即可完整迁移。建议定期导出一次。</p>
     </div>
   </section>
 
@@ -271,7 +327,9 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
   <section class="page" id="page-library" hidden>
     <div class="card">
       <h2>单词列表</h2>
-      <input type="search" id="wordSearch" placeholder="搜索单词">
+      <div class="row">
+        <input type="search" id="wordSearch" placeholder="搜索单词">
+      </div>
       <div id="wordList"></div>
       <div class="pager" id="wordPager">
         <button class="btn small" id="wordPrev">上一页</button>
@@ -284,7 +342,7 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
       <button class="btn" id="toggleAllBtn">显示全部释义</button>
       <button class="btn" id="toggleSelBtn">显示/隐藏所选目录释义</button>
     </div>
-<!--    <p class="hint">点击目录名称显示/隐藏该目录下的非派生词；点击单词显示/隐藏其派生词。勾选目录后点上方按钮，可整体显示/隐藏该目录下所有单词及派生词的释义；每个目录都有「随机背」按钮。</p>-->
+    <p class="hint">点击目录名称显示/隐藏该目录下的单词；点击单词显示/隐藏其派生词、扩展词、同义词。勾选目录后点上方按钮，可整体显示/隐藏该目录下所有单词及派生词的释义；每个目录都有「随机背」按钮。</p>
     <div id="dirTreeLib" class="tree"></div>
     <div id="libEmpty" class="empty" hidden>还没有目录或单词，先去「录入」添加吧。</div>
   </section>
@@ -293,27 +351,30 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
   <section class="page" id="page-study" hidden>
     <div id="studyHome">
       <div class="card">
-        <label class="check"><input type="checkbox" id="includeDerivedChk"> 背单词时包含派生词</label>
+        <label class="check"><input type="checkbox" id="includeDerivedChk"> 背单词时包含派生词 / 扩展词 / 同义词</label>
+        <div class="field-label">本次学习数量</div>
+        <div class="per-wheel-h" id="studyPerWheel"></div>
       </div>
       <div class="card mode-card">
         <button class="mode-btn learn" data-mode="learn"><b>背新单词</b><span id="learnCount"></span></button>
         <button class="mode-btn review" data-mode="review"><b>复习单词</b><span id="reviewCount"></span></button>
         <button class="mode-btn rand" data-mode="random"><b>随机背词</b><span id="randomCount"></span></button>
       </div>
-      <p class="hint">规则：每个单词点够 3 次「认识」才会从队列消失；<br>点击任意按钮先显示释义，再点一次按钮才生效并进入下一个单词（按第二次点击的按钮处理）；<br>「模糊」认识次数不变、「不认识」认识次数归零，均排到队尾；<br>「背单词」里只有完成的单词才会进入「复习单词」；<br>随机背一次抽 10 个；复习按艾宾浩斯遗忘曲线安排（1/2/4/7/15/30/60 天）。</p>
+      <p class="hint">规则：「背新单词」「复习单词」完成的词按艾宾浩斯曲线（1/2/4/7/15/30/60 天）安排复习，<br>「随机背词」不改变复习计划。</p>
     </div>
 
     <div id="studyCard" hidden>
       <div class="progress" id="studyProgress"></div>
       <div class="card word-card">
-        <div class="word-line">
-          <span id="cardTag" class="tag" hidden></span>
-          <span id="cardWord" class="big-word"></span>
+        <div class="word-line"><span id="cardWord" class="big-word"></span></div>
+        <button class="source-btn" id="sourceBtn" hidden></button>
+        <div id="sourceMeaning" class="answer" hidden></div>
+        <div class="action-row">
+          <button class="btn ghost" id="tipBtn">提示</button>
           <button class="icon-btn" id="speakBtn" aria-label="朗读">
             <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path d="M16 8.5c1.6 1.4 1.6 5.6 0 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/><path d="M18.5 6c2.8 2.6 2.8 9.4 0 12" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
         </div>
-        <button class="btn ghost" id="tipBtn">提示</button>
         <div id="tipBox" class="tip-box" hidden></div>
         <div id="answerBox" class="answer" hidden></div>
         <div class="grade-row" id="gradeRow">
@@ -345,33 +406,86 @@ input:focus, select:focus, textarea:focus { border-color: var(--primary); backgr
 <script>
 'use strict';
 
-/* ================= 存储与数据模型 ================= */
+/* ================= 存储：IndexedDB（大容量）+ localStorage 兜底 ================= */
 
-const STORE_KEY = 'wordapp_v1';
+const IDB_NAME = 'wordapp', IDB_STORE = 'kv', STATE_KEY = 'state';
 let state = null;
 let storageOK = true;
 
-function loadState() {
-  try {
-    localStorage.setItem('__t', '1');
-    localStorage.removeItem('__t');
-    state = JSON.parse(localStorage.getItem(STORE_KEY));
-  } catch (e) {
-    storageOK = false;
-    state = null;
+let dbPromise = null;
+function idb() {
+  if (!dbPromise) {
+    dbPromise = new Promise((resolve, reject) => {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = () => req.result.createObjectStore(IDB_STORE);
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
   }
-  if (!state || typeof state !== 'object') state = {};
-  if (!state.seq) state.seq = 1;
-  if (!Array.isArray(state.dirs)) state.dirs = [];
-  if (!state.words || typeof state.words !== 'object') state.words = {};
-  if (!state.settings) state.settings = { includeDerived: false };
+  return dbPromise;
+}
+function idbGet(key) {
+  return idb().then(db => new Promise(resolve => {
+    const r = db.transaction(IDB_STORE).objectStore(IDB_STORE).get(key);
+    r.onsuccess = () => resolve(r.result);
+    r.onerror = () => resolve(undefined);
+  })).catch(() => undefined);
+}
+function idbSet(key, val) {
+  return idb().then(db => new Promise((resolve, reject) => {
+    const t = db.transaction(IDB_STORE, 'readwrite');
+    t.objectStore(IDB_STORE).put(val, key);
+    t.oncomplete = () => resolve();
+    t.onerror = () => reject(t.error);
+  }));
+}
+
+async function loadState() {
+  let raw = null;
+  let idbOK = true;
+  try { raw = await idbGet(STATE_KEY); } catch (e) { idbOK = false; }
+  if (raw === undefined || raw === null) {
+    // 兜底/迁移：尝试 localStorage
+    try {
+      const ls = localStorage.getItem('wordapp_v1');
+      if (ls) { raw = JSON.parse(ls); await idbSet(STATE_KEY, raw); }
+    } catch (e) { idbOK = false; }
+  }
+  if (!idbOK) {
+    try { localStorage.setItem('__t', '1'); localStorage.removeItem('__t'); }
+    catch (e) { idbOK = false; }
+  }
+  storageOK = idbOK || !!raw;
+  state = (raw && typeof raw === 'object') ? raw : {};
+  migrateState(state);
+}
+
+function migrateState(s) {
+  if (!s.seq) s.seq = 1;
+  if (!Array.isArray(s.dirs)) s.dirs = [];
+  if (!s.words || typeof s.words !== 'object') s.words = {};
+  if (!s.settings) s.settings = {};
+  if (!Array.isArray(s.settings.lastDirIds)) s.settings.lastDirIds = [];
+  Object.values(s.words).forEach(w => {
+    if (!w.type) { // 旧版本数据迁移
+      w.type = w.isDerived ? 'derived' : 'base';
+      w.parentIds = w.parentWordId ? [w.parentWordId] : [];
+      delete w.isDerived; delete w.parentWordId;
+    }
+    if (!Array.isArray(w.parentIds)) w.parentIds = [];
+    if (!Array.isArray(w.dirIds)) w.dirIds = [];
+    if (!Array.isArray(w.senses)) w.senses = [];
+    if (typeof w.tip !== 'string') w.tip = '';
+    if (!w.stats) w.stats = null;
+  });
 }
 
 function saveState() {
-  if (!storageOK) return;
-  try {
-    localStorage.setItem(STORE_KEY, JSON.stringify(state));
-  } catch (e) { storageOK = false; }
+  if (!state) return;
+  idbSet(STATE_KEY, state).catch(() => {
+    try { localStorage.setItem('wordapp_v1', JSON.stringify(state)); }
+    catch (e) { storageOK = false; }
+  });
 }
 
 function uid() { return 'w' + (state.seq++); }
@@ -392,7 +506,9 @@ function shuffle(arr) {
   return arr;
 }
 
-/* ---------- 日期工具（本地时区，YYYY-MM-DD） ---------- */
+function byCreation(a, b) { return parseInt(a.id.slice(1), 10) - parseInt(b.id.slice(1), 10); }
+
+/* ---------- 日期工具 ---------- */
 
 function fmtDate(d) {
   const y = d.getFullYear();
@@ -400,9 +516,7 @@ function fmtDate(d) {
   const day = String(d.getDate()).padStart(2, '0');
   return `${y}-${m}-${day}`;
 }
-
 function todayStr() { return fmtDate(new Date()); }
-
 function addDays(dateStr, n) {
   const [y, m, d] = dateStr.split('-').map(Number);
   const dt = new Date(y, m - 1, d);
@@ -418,33 +532,17 @@ function walkDirs(fn, nodes) {
     if (n.children && n.children.length) walkDirs(fn, n.children);
   });
 }
-
 function findDir(id) {
   let r = null;
   walkDirs(d => { if (d.id === id) r = d; });
   return r;
 }
-
-function dirPath(id) {
-  const parts = [];
-  (function find(nodes, path) {
-    for (const n of nodes) {
-      const p = path.concat(n.name);
-      if (n.id === id) { parts.push(...p); return true; }
-      if (n.children && n.children.length && find(n.children, p)) return true;
-    }
-    return false;
-  })(state.dirs, []);
-  return parts.join(' / ');
-}
-
 function collectDirIds(id) {
   const ids = [];
   const d = findDir(id);
   if (d) walkDirs(n => ids.push(n.id), [d]);
   return ids;
 }
-
 function createDir(name, parentId) {
   const node = { id: uid(), name: name, children: [] };
   if (parentId) {
@@ -454,12 +552,7 @@ function createDir(name, parentId) {
   state.dirs.push(node);
   return node;
 }
-
-function renameDir(id, name) {
-  const d = findDir(id);
-  if (d) d.name = name;
-}
-
+function renameDir(id, name) { const d = findDir(id); if (d) d.name = name; }
 function deleteDir(id) {
   (function rm(nodes) {
     for (let i = 0; i < nodes.length; i++) {
@@ -476,44 +569,72 @@ function deleteDir(id) {
 
 /* ---------- 单词 ---------- */
 
+const TYPE_LABEL = { base: '', derived: '派生词', extension: '扩展词', synonym: '同义词' };
+
 function wordList() { return Object.values(state.words); }
 function getWord(id) { return state.words[id]; }
-function childWords(pid) { return wordList().filter(w => w.parentWordId === pid); }
-function rootWords() { return wordList().filter(w => !w.isDerived); }
+function isBase(w) { return w && w.type === 'base'; }
 
-/* 某目录（含子目录）下的单词；includeDerived 时把父单词在该范围内的派生词也算上 */
+/* 派生词/同义词动态跟随父单词的目录；扩展词/普通词用自己的 dirIds */
+function dynamicDirIds(w) {
+  if (!w) return [];
+  if (w.type === 'derived' || w.type === 'synonym') {
+    const p = getWord(w.parentIds[0]);
+    return p ? (p.dirIds || []) : [];
+  }
+  return w.dirIds || [];
+}
+
+/* 某单词下的所有子词（派生词/扩展词/同义词），按创建时间升序 */
+function childWords(pid) {
+  return wordList().filter(w => (w.parentIds || []).indexOf(pid) !== -1).sort(byCreation);
+}
+
+/* 目录直属的根级单词：普通词 + 有自己目录的扩展词 */
+function dirRootWords(dirId) {
+  return wordList()
+    .filter(w => (w.type === 'base' || w.type === 'extension') &&
+                 (w.dirIds || []).indexOf(dirId) !== -1)
+    .sort(byCreation);
+}
+
 function wordsUnderDir(dirId, includeDerived) {
   const ids = new Set(collectDirIds(dirId));
-  const base = wordList().filter(w => !w.isDerived && (w.dirIds || []).some(d => ids.has(d)));
-  if (!includeDerived) return base;
-  const set = new Set(base.map(w => w.id));
-  wordList().forEach(w => {
-    if (w.isDerived && w.parentWordId && set.has(w.parentWordId)) set.add(w.id);
-  });
+  const direct = wordList().filter(w =>
+    (w.type === 'base' || w.type === 'extension') &&
+    dynamicDirIds(w).some(d => ids.has(d)));
+  const set = new Set(direct.map(w => w.id));
+  if (includeDerived) {
+    wordList().forEach(w => {
+      if ((w.parentIds || []).some(p => set.has(p))) set.add(w.id);
+    });
+  }
   return wordList().filter(w => set.has(w.id));
 }
 
-/* 新增 / 编辑单词 */
-function upsertWord(data, editId) {
-  let w;
-  if (editId && state.words[editId]) {
-    w = state.words[editId];
-  } else {
-    w = { id: uid(), stats: null };
-    state.words[w.id] = w;
-  }
-  w.text = data.text;
-  w.isDerived = !!data.isDerived;
-  w.parentWordId = w.isDerived ? data.parentWordId : null;
-  w.dirIds = data.dirIds || [];
-  w.senses = data.senses || [];
-  w.tip = data.tip || '';
+function createWord(data) {
+  const w = {
+    id: uid(), type: data.type, text: data.text,
+    parentIds: data.parentIds || [], dirIds: data.dirIds || [],
+    senses: data.senses || [], tip: data.tip || '', stats: null
+  };
+  state.words[w.id] = w;
   saveState();
-  return w.id;
+  return w;
 }
 
 function deleteWord(id) {
-  childWords(id).forEach(c => deleteWord(c.id));
+  // 删除以其为父的所有子词
+  childWords(id).slice().forEach(c => deleteWord(c.id));
+  // 扩展词引用了它的话，解除引用
+  wordList().forEach(w => {
+    if (w.parentIds && w.parentIds.indexOf(id) !== -1) {
+      w.parentIds = w.parentIds.filter(x => x !== id);
+      if (w.type === 'extension' && !w.parentIds.length && !(w.dirIds || []).length) {
+        delete state.words[w.id]; // 无父无目录的孤儿扩展词直接删除
+      }
+    }
+  });
   delete state.words[id];
   saveState();
 }
@@ -522,58 +643,47 @@ function sensesHTML(w) {
   const lines = (w.senses || []).map(s =>
     `<div><b>${esc(s.pos)}</b> ${esc(s.meaning)}</div>`).join('');
   const tip = w.tip ? `<div class="w-tip-line">提示：${esc(w.tip)}</div>` : '';
-  return lines + tip;
+  return (lines || '<div>（意思与所属单词相同）</div>') + tip;
 }
 
 /* ---------- 艾宾浩斯复习计划 ---------- */
-/* 认识升级、模糊降一级、不认识清零；一直不认识就每天出现 */
+/* 按本轮最差表现计算：认识→间隔升级 1/2/4/7/15/30/60 天；模糊→间隔缩短；不认识→明天重现 */
 const INTERVALS = [1, 2, 4, 7, 15, 30, 60];
 
-function reviewWord(w, result) {
+function reviewWord(w, worst) {
   const t = todayStr();
   if (!w.stats) w.stats = { level: 0, count: 0, due: t, history: [] };
   const s = w.stats;
   s.count++;
-  s.history.push({ d: t, r: result });
+  s.history.push({ d: t, r: worst });
   if (s.history.length > 50) s.history = s.history.slice(-50);
 
-  if (result === 2) {
+  if (worst === 2) {
     s.level = Math.min(s.level + 1, INTERVALS.length - 1);
-  } else if (result === 1) {
+  } else if (worst === 1) {
     s.level = Math.max(s.level - 1, 0);
   } else {
     s.level = 0;
   }
 
-  let days;
-  if (result === 2) {
-    days = s.level === 1 ? 1 : INTERVALS[s.level];
-  } else {
-    days = 1;
-  }
-
+  const days = (worst === 2) ? (s.level === 1 ? 1 : INTERVALS[s.level]) : 1;
   /* 漏背顺延：认识的情况按原计划日期起算（若已过期则从今天） */
-  const base = (result === 2 && s.due && s.due > t) ? s.due : t;
+  const base = (worst === 2 && s.due && s.due > t) ? s.due : t;
   s.due = addDays(base, days);
   s.last = t;
   saveState();
 }
 
-/* ---------- 语音朗读：优先调用有道词典发音接口（真人读音），失败自动回退系统 TTS ---------- */
-/* 有道接口：https://dict.youdao.com/dictvoice?type=2&audio=单词 （type=2 美音，改成 1 为英音） */
+/* ---------- 语音朗读：有道真人发音，失败回退系统 TTS ---------- */
 
 let currentAudio = null;
 
 function speak(text) {
-  speakOnline(text);
-}
-
-function speakOnline(text) {
   try {
     if (currentAudio) { currentAudio.pause(); currentAudio.onerror = null; currentAudio = null; }
     const audio = new Audio();
     audio.src = 'https://dict.youdao.com/dictvoice?type=2&audio=' + encodeURIComponent(text);
-    audio.onerror = () => speakOffline(text);   // 接口请求失败 → 回退
+    audio.onerror = () => speakOffline(text);
     currentAudio = audio;
     const p = audio.play();
     if (p && p.catch) p.catch(() => speakOffline(text));
@@ -581,7 +691,6 @@ function speakOnline(text) {
     speakOffline(text);
   }
 }
-
 function speakOffline(text) {
   if (!('speechSynthesis' in window)) { alert('无法朗读：网络不可用且系统不支持语音'); return; }
   speechSynthesis.cancel();
@@ -589,15 +698,25 @@ function speakOffline(text) {
   u.lang = 'en-US';
   u.rate = 0.85;
   const voices = speechSynthesis.getVoices();
-  const v = voices.find(x => /^en[-_]US/i.test(x.lang)) ||
-            voices.find(x => /^en/i.test(x.lang));
+  const v = voices.find(x => /^en[-_]US/i.test(x.lang)) || voices.find(x => /^en/i.test(x.lang));
   if (v) u.voice = v;
   speechSynthesis.speak(u);
 }
 
-function preloadVoices() {
-  /* 兼容保留：第三方发音接口无需预热；预先激活一次系统 TTS 以便离线回退可用 */
-  if ('speechSynthesis' in window) speechSynthesis.getVoices();
+/* ---------- 单词拼写校验（免费词典 API，成功结果本会话内缓存） ---------- */
+
+const spellOK = new Set();
+
+function checkSpelling(word) {
+  const key = word.toLowerCase();
+  if (spellOK.has(key)) return Promise.resolve({ ok: true });
+  return fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word))
+    .then(r => {
+      if (r.status === 404) return { ok: false };
+      if (r.ok) { spellOK.add(key); return { ok: true }; }
+      return { ok: true }; // 其它状态不拦截
+    })
+    .catch(() => ({ netFail: true })); // 断网：交给用户确认
 }
 
 /* ---------- 备份 / 恢复 ---------- */
@@ -648,11 +767,10 @@ function importData(file) {
       }
       if (!confirm('导入将覆盖当前全部数据（目录、单词、背词记录），确定继续？')) return;
       state = obj;
-      if (!state.seq) state.seq = 1;
-      if (!state.settings) state.settings = { includeDerived: false };
+      migrateState(state);
       saveState();
-      refreshAll();
       resetWordForm();
+      refreshAll();
       alert('导入成功');
     } catch (e) {
       alert('导入失败：文件不是有效的备份 JSON');
@@ -664,10 +782,28 @@ function importData(file) {
 /* ================= 录入页 ================= */
 
 let editingWordId = null;
-let selectedParentWordId = null;   // 派生词模式下选中的父单词
-const expandedMgmtDirs = new Set();  // 目录管理树展开状态（默认全折叠）
-const expandedFormDirs = new Set();  // 表单目录树展开状态（默认全折叠）
-const expandedFormWords = new Set(); // 表单树中展开显示派生词的单词
+let selectedParentWordId = null;      // 派生词/同义词：选中的父单词（单选）
+const selectedParentIds = new Set();  // 扩展词：选中的父单词（多选）
+const formCheckedDirs = new Set();    // 表单目录勾选
+const expandedMgmtDirs = new Set();   // 目录管理树展开状态
+const expandedFormDirs = new Set();   // 表单目录树展开
+const expandedFormWords = new Set();  // 表单树中展开显示子词的单词
+let lastAddedWordId = null;           // 最近新增的普通单词（表单树中高亮）
+
+function getFormType() {
+  const r = document.querySelector('input[name="wordType"]:checked');
+  return r ? r.value : 'base';
+}
+
+function setType(type) {
+  document.querySelectorAll('input[name="wordType"]').forEach(c => {
+    c.checked = (c.value === type);
+  });
+  document.querySelectorAll('.type-row label').forEach(l => l.classList.remove('on'));
+  const on = document.querySelector(`#lbl${type.charAt(0).toUpperCase() + type.slice(1)}`);
+  if (on && type !== 'base') on.classList.add('on');
+  onTypeChange(type);
+}
 
 function initEntry() {
   document.getElementById('addRootDirBtn').addEventListener('click', () => {
@@ -706,7 +842,15 @@ function initEntry() {
     }
   });
 
-  document.getElementById('wIsDerived').addEventListener('change', onDerivedToggle);
+  /* checkbox：勾选 = 选择该类型；取消勾选 = 取消类型回到普通单词。
+     同一时刻最多只有一个被勾选（setType 强制互斥），
+     所以“取消勾选的那个”必然是当前已选类型，即再次点击取消 */
+  document.getElementById('typeRow').addEventListener('change', e => {
+    const input = e.target.closest('input[name="wordType"]');
+    if (!input) return;
+    setType(input.checked ? input.value : 'base');
+  });
+
   document.getElementById('wDirs').addEventListener('click', e => {
     const btn = e.target.closest('button[data-act="ftoggle"]');
     if (!btn) return;
@@ -717,22 +861,34 @@ function initEntry() {
   });
   document.getElementById('wDirs').addEventListener('change', e => {
     const inp = e.target;
-    if (!inp.matches('input[data-word]')) return;
-    if (inp.checked) {
-      selectedParentWordId = inp.dataset.word;
-      document.querySelectorAll('#wDirs input[data-word]').forEach(cb => {
-        if (cb !== inp) cb.checked = false;
-      });
-      const p = getWord(selectedParentWordId);
-      if (p) {
-        document.querySelectorAll('#wDirs input[data-dir]').forEach(cb => {
-          cb.checked = (p.dirIds || []).includes(cb.dataset.dir);
+    if (inp.matches('input[data-dir]')) {
+      if (inp.checked) formCheckedDirs.add(inp.dataset.dir);
+      else formCheckedDirs.delete(inp.dataset.dir);
+      return;
+    }
+    if (inp.matches('input[data-word]')) {
+      const type = getFormType();
+      const wid = inp.dataset.word;
+      if (!inp.checked) {
+        selectedParentIds.delete(wid);
+        if (selectedParentWordId === wid) selectedParentWordId = null;
+        renderFormDirTree();
+        return;
+      }
+      const w = getWord(wid);
+      if (!isBase(w)) { inp.checked = false; alert('只能选择未派生的普通单词作为所属单词'); return; }
+      if (type === 'extension') {
+        selectedParentIds.add(wid);
+      } else {
+        // 派生词/同义词：单选
+        selectedParentIds.clear();
+        selectedParentWordId = wid;
+        document.querySelectorAll('#wDirs input[data-word]').forEach(cb => {
+          if (cb !== inp) cb.checked = false;
         });
       }
-    } else {
-      selectedParentWordId = null;
+      renderFormDirTree();
     }
-    renderFormDirTree();
   });
 
   document.getElementById('addSenseBtn').addEventListener('click', () => addSenseRow('n.', ''));
@@ -757,31 +913,11 @@ function initEntry() {
   });
 
   addSenseRow('n.', '');
-  renderEntryAll();
-}
-
-function onWordListClick(e) {
-  const btn = e.target.closest('button[data-act]');
-  if (!btn) return;
-  const id = btn.closest('[data-id]').dataset.id;
-  const act = btn.dataset.act;
-  if (act === 'speak') speak(getWord(id).text);
-  else if (act === 'edit') editWord(id);
-  else if (act === 'del') {
-    const w = getWord(id);
-    const kids = childWords(id).length;
-    if (confirm(`删除单词「${w.text}」？${kids ? `其下 ${kids} 个派生词也会一并删除。` : ''}`)) {
-      deleteWord(id);
-      if (editingWordId === id) resetWordForm();
-      refreshAll();
-    }
-  }
 }
 
 function renderEntryAll() {
   renderEntryDirTree();
   renderFormDirTree();
-  renderWordList();
 }
 
 /* ---------- 目录树（管理） ---------- */
@@ -818,20 +954,24 @@ function renderEntryDirTree() {
   })(state.dirs, 0, box);
 }
 
-/* ---------- 表单：目录树（展示到派生词一级） ---------- */
+/* ---------- 表单：目录树（目录 → 单词 → 子词），按类型控制勾选 ---------- */
 
 function renderFormDirTree() {
   const box = document.getElementById('wDirs');
-  if (!state.dirs.length) { box.innerHTML = '<p class="hint">请先在上方添加目录</p>'; return; }
-  /* 重建前保留当前勾选状态 */
-  const checkedDirs = new Set(
-    [...box.querySelectorAll('input[data-dir]:checked')].map(i => i.dataset.dir));
+  const type = getFormType();
+  if (!state.dirs.length) { box.innerHTML = '<p class="hint">请先在上方添加目录</p>'; updateFormHints(type); return; }
   box.innerHTML = '';
-  const derived = document.getElementById('wIsDerived').checked;
+  const dirsDisabled = (type === 'derived' || type === 'synonym');
+
   (function renderDirs(nodes, depth, parent) {
     nodes.forEach(n => {
       const words = dirRootWords(n.id);
       const hasSub = n.children.length > 0 || words.length > 0;
+      const autoOn = dirsDisabled && type !== 'extension' && selectedParentWordId &&
+                     (getWord(selectedParentWordId) || {}).dirIds;
+      const checked = dirsDisabled
+        ? !!(autoOn && autoOn.indexOf(n.id) !== -1)
+        : formCheckedDirs.has(n.id);
       const item = document.createElement('div');
       item.className = 'dir-check-item';
       item.style.setProperty('--depth', depth);
@@ -839,7 +979,7 @@ function renderFormDirTree() {
         ${hasSub
           ? `<button type="button" class="w-arrow" data-act="ftoggle" data-kind="dir" data-tid="${n.id}">${expandedFormDirs.has(n.id) ? '▾' : '▸'}</button>`
           : '<span class="w-arrow-spacer"></span>'}
-        <input type="checkbox" data-dir="${n.id}" ${checkedDirs.has(n.id) ? 'checked' : ''} ${derived ? 'disabled' : ''}>
+        <input type="checkbox" data-dir="${n.id}" ${checked ? 'checked' : ''} ${dirsDisabled ? 'disabled' : ''}>
         <span class="dir-name">${esc(n.name)}</span>
         <span class="dir-count">${wordsUnderDir(n.id, true).length}词</span>`;
       parent.appendChild(item);
@@ -847,42 +987,84 @@ function renderFormDirTree() {
         const children = document.createElement('div');
         children.className = 'node-children';
         renderDirs(n.children, depth + 1, children);
-        words.forEach(w => renderFormWordNode(w, depth + 1, children, derived));
+        words.forEach(w => renderFormWordNode(w, depth + 1, children, type));
         parent.appendChild(children);
       }
     });
   })(state.dirs, 0, box);
+  updateFormHints(type);
 }
 
-function renderFormWordNode(w, depth, parent, derived) {
+function renderFormWordNode(w, depth, parent, type) {
   const kids = childWords(w.id);
+  const expanded = expandedFormWords.has(w.id);
   const item = document.createElement('div');
-  item.className = 'dir-check-item form-word-node';
+  item.className = 'dir-check-item form-word-node' +
+    (lastAddedWordId === w.id && type === 'base' ? ' hl' : '');
   item.style.setProperty('--depth', depth);
+  const checked = type === 'extension'
+    ? selectedParentIds.has(w.id)
+    : selectedParentWordId === w.id;
+  const disabled = type === 'base';
+  const typeTag = TYPE_LABEL[w.type] ? `<span class="dir-count">${TYPE_LABEL[w.type]}</span>` : '';
   item.innerHTML = `
     ${kids.length
-      ? `<button type="button" class="w-arrow" data-act="ftoggle" data-kind="word" data-tid="${w.id}">${expandedFormWords.has(w.id) ? '▾' : '▸'}</button>`
+      ? `<button type="button" class="w-arrow" data-act="ftoggle" data-kind="word" data-tid="${w.id}">${expanded ? '▾' : '▸'}</button>`
       : '<span class="w-arrow-spacer"></span>'}
-    <input type="checkbox" data-word="${w.id}" ${selectedParentWordId === w.id ? 'checked' : ''} ${derived ? '' : 'disabled'}>
+    <input type="checkbox" data-word="${w.id}" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''}>
     <span class="dir-name">${esc(w.text)}</span>
-    ${w.isDerived ? '<span class="dir-count">派生</span>' : ''}`;
+    ${typeTag}`;
   parent.appendChild(item);
-  if (kids.length && expandedFormWords.has(w.id)) {
+  if (kids.length && expanded) {
     const children = document.createElement('div');
     children.className = 'node-children';
-    kids.forEach(c => renderFormWordNode(c, depth + 1, children, derived));
+    kids.forEach(c => renderFormWordNode(c, depth + 1, children, type));
     parent.appendChild(children);
   }
 }
 
-function onDerivedToggle() {
-  const derived = document.getElementById('wIsDerived').checked;
-  selectedParentWordId = null;
-  document.querySelectorAll('#wDirs input[data-word]').forEach(cb => { cb.checked = false; });
-  if (derived) {
-    document.querySelectorAll('#wDirs input[data-dir]').forEach(cb => { cb.checked = false; });
+function onTypeChange(forcedType) {
+  const type = forcedType || getFormType();
+
+  if (type === 'base') {
+    selectedParentIds.clear();
+    selectedParentWordId = null;
+    // 恢复上次勾选的目录
+    formCheckedDirs.clear();
+    (state.settings.lastDirIds || []).forEach(id => {
+      if (findDir(id)) formCheckedDirs.add(id);
+    });
+  } else if (type === 'extension') {
+    selectedParentWordId = null;
+    if (!formCheckedDirs.size) {
+      (state.settings.lastDirIds || []).forEach(id => {
+        if (findDir(id)) formCheckedDirs.add(id);
+      });
+    }
+  } else {
+    // 派生词/同义词：目录跟随父单词
+    formCheckedDirs.clear();
+    // 若已有多个勾选的父词（从扩展词切过来），保留第一个
+    if (selectedParentIds.size) {
+      selectedParentWordId = [...selectedParentIds][0];
+    }
+    selectedParentIds.clear();
+    if (selectedParentWordId && !isBase(getWord(selectedParentWordId))) selectedParentWordId = null;
   }
   renderFormDirTree();
+}
+
+function updateFormHints(type) {
+  const treeHint = document.getElementById('treeHint');
+  const senseHint = document.getElementById('senseHint');
+  const hints = {
+    base: '普通单词：勾选目录（可多选）。',
+    derived: '派生词：在树中勾选一个非派生词作为所属单词，目录自动跟随它。',
+    extension: '扩展词：在树中勾选一个或多个非派生词，并可自行勾选目录。',
+    synonym: '同义词：在树中勾选一个非派生词，可一次输入多个单词（用逗号分隔），意思自动与所属单词一致。'
+  };
+  treeHint.textContent = hints[type];
+  senseHint.hidden = type !== 'synonym';
 }
 
 /* ---------- 表单：词性 / 意思行 ---------- */
@@ -896,39 +1078,105 @@ function addSenseRow(pos, meaning) {
   row.innerHTML = `
     <select class="sense-pos">${POS_OPTIONS.map(p =>
       `<option value="${p}" ${p === pos ? 'selected' : ''}>${p}</option>`).join('')}</select>
-    <input class="sense-meaning" type="text" placeholder="意思，如：放弃" value="${esc(meaning)}">
+    <input class="sense-meaning" type="text" placeholder="意思，如：有雄心的" value="${esc(meaning)}">
     <button type="button" class="mini danger" data-act="rm">删</button>`;
   document.getElementById('senseRows').appendChild(row);
 }
 
-/* ---------- 提交 / 编辑 / 重置 ---------- */
-
-function onWordSubmit(e) {
-  e.preventDefault();
-  const text = document.getElementById('wText').value.trim();
-  if (!text) return alert('请输入单词');
-  const isDerived = document.getElementById('wIsDerived').checked;
-  let dirIds = [], parentWordId = null;
-  if (isDerived) {
-    if (!selectedParentWordId) return alert('请在目录树中勾选所属的非派生词');
-    const p = getWord(selectedParentWordId);
-    if (!p) return alert('所选父单词不存在，请重新勾选');
-    parentWordId = selectedParentWordId;
-    dirIds = (p.dirIds || []).slice(); // 派生词跟随父单词的目录
-  } else {
-    dirIds = [...document.querySelectorAll('#wDirs input[data-dir]:checked')].map(i => i.dataset.dir);
-    if (!dirIds.length) return alert('请至少勾选一个目录');
-  }
-  const senses = [...document.querySelectorAll('.sense-row')].map(r => ({
+function collectSenses() {
+  return [...document.querySelectorAll('.sense-row')].map(r => ({
     pos: r.querySelector('.sense-pos').value,
     meaning: r.querySelector('.sense-meaning').value.trim()
   })).filter(s => s.meaning);
-  if (!senses.length) return alert('请至少填写一条意思');
+}
 
-  upsertWord({
-    text, isDerived, parentWordId, dirIds, senses,
-    tip: document.getElementById('wTip').value.trim()
-  }, editingWordId);
+/* ---------- 提交 / 编辑 / 重置 ---------- */
+
+function splitSynonyms(raw) {
+  return raw.split(/[，,]/).map(s => s.trim()).filter(s => s);
+}
+
+async function onWordSubmit(e) {
+  e.preventDefault();
+  const type = getFormType();
+  const raw = document.getElementById('wText').value.trim();
+  if (!raw) return alert('请输入单词');
+
+  const words = type === 'synonym' ? splitSynonyms(raw) : [raw];
+  if (!words.length) return alert('请输入单词');
+  if (type !== 'synonym' && words.length > 1) {
+    return alert('一次只能添加一个单词；要一次添加多个请使用「同义词」模式并用逗号分隔');
+  }
+
+  /* 所属单词校验 */
+  let parentIds = [];
+  if (type === 'derived' || type === 'synonym') {
+    if (!selectedParentWordId) {
+      return alert(type === 'derived' ? '派生词必须勾选一个所属的非派生词'
+                                      : '同义词必须勾选一个所属的非派生词');
+    }
+    if (!isBase(getWord(selectedParentWordId))) return alert('所属单词必须是未派生的普通单词');
+    parentIds = [selectedParentWordId];
+  } else if (type === 'extension') {
+    parentIds = [...selectedParentIds].filter(id => isBase(getWord(id)));
+    if (!parentIds.length) return alert('扩展词必须至少勾选一个所属的非派生词');
+  }
+
+  /* 目录校验 */
+  let dirIds = [];
+  if (type === 'derived' || type === 'synonym') {
+    dirIds = (getWord(parentIds[0]).dirIds || []).slice();
+  } else {
+    dirIds = [...formCheckedDirs].filter(id => findDir(id));
+    if (type === 'base' && !dirIds.length) return alert('请至少勾选一个目录');
+    if (dirIds.length) state.settings.lastDirIds = dirIds;
+  }
+
+  /* 意思校验 */
+  let senses = collectSenses();
+  if (type === 'synonym') {
+    if (!senses.length) {
+      const p = getWord(parentIds[0]);
+      senses = (p.senses || []).map(s => ({ pos: s.pos, meaning: s.meaning }));
+    }
+  } else if (!senses.length) {
+    return alert('请至少填写一条意思');
+  }
+
+  /* 拼写校验 */
+  for (const word of words) {
+    const r = await checkSpelling(word);
+    if (r.ok === false) {
+      return alert(`「${word}」拼写不正确或不是英文单词，无法添加`);
+    }
+    if (r.netFail && !confirm(`无法联网校验「${word}」的拼写，确定要添加吗？`)) {
+      return;
+    }
+  }
+
+  const tip = document.getElementById('wTip').value.trim();
+
+  if (editingWordId) {
+    /* 编辑模式：更新当前单词；同义词多输入的部分作为新增词挂到同一父单词 */
+    const w = getWord(editingWordId);
+    w.text = words[0];
+    w.type = type;
+    w.parentIds = parentIds.slice();
+    w.dirIds = dirIds.slice();
+    w.senses = senses;
+    w.tip = tip;
+    saveState();
+    if (type === 'synonym' && words.length > 1) {
+      words.slice(1).forEach(text => createWord({ text, type, parentIds, dirIds, senses, tip: '' }));
+    }
+  } else {
+    if (type === 'synonym') {
+      words.forEach(text => createWord({ text, type, parentIds, dirIds, senses, tip: '' }));
+    } else {
+      const w = createWord({ text: words[0], type, parentIds, dirIds, senses, tip });
+      if (type === 'base') lastAddedWordId = w.id;
+    }
+  }
 
   resetWordForm();
   refreshAll();
@@ -940,19 +1188,19 @@ function editWord(id) {
   resetWordForm();
   editingWordId = id;
   document.getElementById('wText').value = w.text;
-  document.getElementById('wIsDerived').checked = w.isDerived;
-  if (w.isDerived) selectedParentWordId = w.parentWordId || null;
-  renderFormDirTree();
-  if (w.isDerived && selectedParentWordId) {
-    const p = getWord(selectedParentWordId);
-    document.querySelectorAll('#wDirs input[data-dir]').forEach(cb => {
-      cb.checked = !!p && (p.dirIds || []).includes(cb.dataset.dir);
-    });
-  } else if (!w.isDerived) {
-    document.querySelectorAll('#wDirs input[data-dir]').forEach(cb => {
-      cb.checked = (w.dirIds || []).includes(cb.dataset.dir);
-    });
+  setType(w.type === 'base' ? 'base' : w.type);
+  formCheckedDirs.clear();
+  selectedParentIds.clear();
+  selectedParentWordId = null;
+  if (w.type === 'extension') {
+    w.parentIds.forEach(pid => selectedParentIds.add(pid));
+    w.dirIds.forEach(did => { if (findDir(did)) formCheckedDirs.add(did); });
+  } else if (w.type === 'derived' || w.type === 'synonym') {
+    selectedParentWordId = w.parentIds[0] || null;
+  } else {
+    w.dirIds.forEach(did => { if (findDir(did)) formCheckedDirs.add(did); });
   }
+  renderFormDirTree();
   const rows = document.getElementById('senseRows');
   rows.innerHTML = '';
   (w.senses || []).forEach(s => addSenseRow(s.pos, s.meaning));
@@ -960,12 +1208,22 @@ function editWord(id) {
   document.getElementById('wTip').value = w.tip || '';
   document.getElementById('saveWordBtn').textContent = '保存修改';
   document.getElementById('cancelEditBtn').hidden = false;
-  window.scrollTo(0, 0);
+  switchTabTo('page-entry');
+  setTimeout(() => {
+    document.getElementById('wordForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
 }
 
 function resetWordForm() {
   editingWordId = null;
   selectedParentWordId = null;
+  selectedParentIds.clear();
+  formCheckedDirs.clear();
+  setType('base');
+  // 默认勾选上次使用的目录
+  (state.settings.lastDirIds || []).forEach(id => {
+    if (findDir(id)) formCheckedDirs.add(id);
+  });
   document.getElementById('wordForm').reset();
   renderFormDirTree();
   const rows = document.getElementById('senseRows');
@@ -975,64 +1233,13 @@ function resetWordForm() {
   document.getElementById('cancelEditBtn').hidden = true;
 }
 
-/* ---------- 单词列表（词库页，每页 10 条，最近添加优先） ---------- */
-
-let wordPage = 1;
-const WORDS_PER_PAGE = 10;
-
-function renderWordList() {
-  const q = document.getElementById('wordSearch').value.trim().toLowerCase();
-  const box = document.getElementById('wordList');
-  const pager = document.getElementById('wordPager');
-  let list = wordList()
-    .sort((a, b) => parseInt(b.id.slice(1), 10) - parseInt(a.id.slice(1), 10));
-  if (q) list = list.filter(w => w.text.toLowerCase().includes(q));
-
-  const pages = Math.max(1, Math.ceil(list.length / WORDS_PER_PAGE));
-  if (wordPage > pages) wordPage = pages;
-  if (wordPage < 1) wordPage = 1;
-
-  const slice = list.slice((wordPage - 1) * WORDS_PER_PAGE, wordPage * WORDS_PER_PAGE);
-  box.innerHTML = slice.length ? '' : '<p class="hint">暂无单词</p>';
-  slice.forEach(w => {
-    const dirs = (w.dirIds || []).map(id => findDir(id)).filter(Boolean)
-      .map(d => d.name).join('、');
-    const pos = (w.senses || []).map(s => s.pos).join(' / ');
-    const p = w.isDerived && w.parentWordId ? getWord(w.parentWordId) : null;
-    const sub = w.isDerived
-      ? `${pos} · 来自 ${p ? p.text : '?'}`
-      : `${pos} · ${dirs || '未分类'}`;
-    const item = document.createElement('div');
-    item.className = 'word-item';
-    item.dataset.id = w.id;
-    item.innerHTML = `
-      <div class="word-item-main">
-        <span class="w-text">${esc(w.text)}</span>
-        ${w.isDerived ? '<span class="tag">派生</span>' : ''}
-        <span class="w-sub">${esc(sub)}</span>
-      </div>
-      <div class="word-item-btns">
-        <button class="mini" data-act="speak">读音</button>
-        <button class="mini" data-act="edit">编辑</button>
-        <button class="mini danger" data-act="del">删除</button>
-      </div>`;
-    box.appendChild(item);
-  });
-
-  document.getElementById('wordPageInfo').textContent =
-    `${wordPage} / ${pages} 页 · 共 ${list.length} 词`;
-  document.getElementById('wordPrev').disabled = wordPage <= 1;
-  document.getElementById('wordNext').disabled = wordPage >= pages;
-  pager.hidden = list.length === 0;
-}
-
 /* ================= 词库页 ================= */
 
 let showAllMeaning = false;
 const revealedSet = new Set();
 const selectedDirsLib = new Set();
-const expandedDirs = new Set();   // 点开的目录：显示该目录下的非派生词
-const expandedWords = new Set();  // 点开的单词：显示其派生词
+const expandedDirs = new Set();
+const expandedWords = new Set();
 
 function initLibrary() {
   document.getElementById('toggleAllBtn').addEventListener('click', () => {
@@ -1072,6 +1279,9 @@ function initLibrary() {
     wordPage = 1;
     renderWordList();
   });
+  // 每页条数选择器已按需求注释掉
+  // renderPerWheel();
+  // initPerWheel();
   document.getElementById('wordList').addEventListener('click', onWordListClick);
 }
 
@@ -1119,6 +1329,7 @@ function renderLibrary() {
   document.getElementById('libEmpty').hidden = state.dirs.length > 0;
   updateToggleButtons();
   updateMeaningVisibility();
+  renderWordList();
 }
 
 function renderLibDirs(nodes, depth, parent) {
@@ -1148,12 +1359,6 @@ function renderLibDirs(nodes, depth, parent) {
   });
 }
 
-function dirRootWords(dirId) {
-  return wordList()
-    .filter(w => !w.isDerived && (w.dirIds || []).indexOf(dirId) !== -1)
-    .sort((a, b) => a.text.localeCompare(b.text));
-}
-
 function buildWordRow(w, depth) {
   const kids = childWords(w.id);
   const expanded = expandedWords.has(w.id);
@@ -1166,6 +1371,7 @@ function buildWordRow(w, depth) {
       ? `<button class="w-arrow" data-act="wtoggle" data-wid="${w.id}">${expanded ? '▾' : '▸'}</button>`
       : '<span class="w-arrow-spacer"></span>'}
     <span class="w-text${kids.length ? ' clickable' : ''}" ${kids.length ? `data-act="wtoggle" data-wid="${w.id}"` : ''}>${esc(w.text)}</span>
+    ${TYPE_LABEL[w.type] ? `<span class="tag">${TYPE_LABEL[w.type]}</span>` : ''}
     <button class="mini icon" data-act="speak" data-wid="${w.id}">
       <svg viewBox="0 0 24 24" width="14" height="14"><path d="M3 9v6h4l5 4V5L7 9H3z" fill="currentColor"/><path d="M16 8.5c1.6 1.4 1.6 5.6 0 7" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
@@ -1174,8 +1380,7 @@ function buildWordRow(w, depth) {
   if (kids.length && expanded) {
     const box = document.createElement('div');
     box.className = 'derived-box';
-    kids.sort((a, b) => a.text.localeCompare(b.text))
-        .forEach(c => box.appendChild(buildWordRow(c, depth + 1)));
+    kids.forEach(c => box.appendChild(buildWordRow(c, depth + 1)));
     wrap.appendChild(box);
   }
   return wrap;
@@ -1197,11 +1402,136 @@ function updateToggleButtons() {
     showAllMeaning ? '隐藏全部释义' : '显示全部释义';
 }
 
+/* ---------- 单词列表（词库页，创建时间倒序，每页条数可选） ---------- */
+
+let wordPage = 1;
+let wordPerPage = 5;
+const PER_PAGE_OPTIONS = [5, 10, 15, 20, 25, 30, 35, 40];
+
+/* 滚动式每页条数选择器：始终展示 5 个数字，
+   当前值 ≤15 时固定展示 5~25；否则以上下 ±5 / ±10 为窗口 */
+function renderPerWheel() {
+  document.getElementById('perToggleNum').textContent = wordPerPage;
+  const wheel = document.getElementById('perWheel');
+  const cur = wordPerPage;
+  const window5 = cur <= 15
+    ? [5, 10, 15, 20, 25]
+    : [cur - 10, cur - 5, cur, cur + 5, cur + 10];
+  wheel.innerHTML = '';
+  window5.forEach(n => {
+    const div = document.createElement('div');
+    div.className = 'pw-item' + (n === cur ? ' cur' : '');
+    div.textContent = n;
+    div.addEventListener('click', () => {
+      wordPerPage = n;
+      wordPage = 1;
+      renderPerWheel();
+      renderWordList();
+      wheel.hidden = true; // 点选数字即确认并收起
+    });
+    wheel.appendChild(div);
+  });
+}
+
+function initPerWheel() {
+  const toggle = document.getElementById('perToggle');
+  const wheel = document.getElementById('perWheel');
+  toggle.addEventListener('click', () => {
+    wheel.hidden = !wheel.hidden; // 打开 / 再点确认收起
+  });
+}
+
+function onWordListClick(e) {
+  const btn = e.target.closest('button[data-act]');
+  if (!btn) return;
+  const id = btn.closest('[data-id]').dataset.id;
+  const act = btn.dataset.act;
+  if (act === 'speak') speak(getWord(id).text);
+  else if (act === 'edit') editWord(id);
+  else if (act === 'del') {
+    const w = getWord(id);
+    const kids = childWords(id).length;
+    if (confirm(`删除单词「${w.text}」？${kids ? `其下 ${kids} 个关联词也会一并删除。` : ''}`)) {
+      deleteWord(id);
+      if (editingWordId === id) resetWordForm();
+      refreshAll();
+    }
+  }
+}
+
+function renderWordList() {
+  const q = document.getElementById('wordSearch').value.trim().toLowerCase();
+  const box = document.getElementById('wordList');
+  const pager = document.getElementById('wordPager');
+  const per = wordPerPage;
+  let list = wordList().sort((a, b) => byCreation(b, a)); // 创建时间倒序：最新的在前
+  if (q) list = list.filter(w => w.text.toLowerCase().includes(q));
+
+  const pages = Math.max(1, Math.ceil(list.length / per));
+  if (wordPage > pages) wordPage = pages;
+  if (wordPage < 1) wordPage = 1;
+
+  const slice = list.slice((wordPage - 1) * per, wordPage * per);
+  box.innerHTML = slice.length ? '' : '<p class="hint">暂无单词</p>';
+  slice.forEach(w => {
+    const dirs = dynamicDirIds(w).map(id => findDir(id)).filter(Boolean)
+      .map(d => d.name).join('、');
+    const pos = (w.senses || []).map(s => s.pos).join(' / ');
+    const parents = (w.parentIds || []).map(getWord).filter(Boolean);
+    const sub = w.type === 'base'
+      ? `${pos} · ${dirs || '未分类'}`
+      : `${pos} · 来自 ${parents.map(p => p.text).join('、') || '?'}`;
+    const item = document.createElement('div');
+    item.className = 'word-item';
+    item.dataset.id = w.id;
+    item.innerHTML = `
+      <div class="word-item-main">
+        <span class="w-text">${esc(w.text)}</span>
+        ${TYPE_LABEL[w.type] ? `<span class="tag">${TYPE_LABEL[w.type]}</span>` : ''}
+        <span class="w-sub">${esc(sub)}</span>
+      </div>
+      <div class="word-item-btns">
+        <button class="mini" data-act="speak">读音</button>
+        <button class="mini" data-act="edit">编辑</button>
+        <button class="mini danger" data-act="del">删除</button>
+      </div>`;
+    box.appendChild(item);
+  });
+
+  document.getElementById('wordPageInfo').textContent =
+    `${wordPage} / ${pages} 页 · 共 ${list.length} 词`;
+  document.getElementById('wordPrev').disabled = wordPage <= 1;
+  document.getElementById('wordNext').disabled = wordPage >= pages;
+  pager.hidden = list.length === 0;
+}
+
 /* ================= 背单词页 ================= */
 
 let session = null;
+let studyPerCount = 10; /* 本次学习数量，决定三种模式的队列长度 */
+
+/* 横向滚动数量选择器：展示 5 个数字，当前 ≤15 固定 5~25，否则窗口 ±5/±10 滚动 */
+function renderStudyPerWheel() {
+  const wheel = document.getElementById('studyPerWheel');
+  const cur = studyPerCount;
+  const window5 = cur <= 15
+    ? [5, 10, 15, 20, 25]
+    : [cur - 10, cur - 5, cur, cur + 5, cur + 10];
+  wheel.innerHTML = '';
+  window5.forEach(n => {
+    const div = document.createElement('div');
+    div.className = 'pw-item' + (n === cur ? ' cur' : '');
+    div.textContent = n;
+    div.addEventListener('click', () => {
+      studyPerCount = n;
+      renderStudyPerWheel();
+    });
+    wheel.appendChild(div);
+  });
+}
 
 function initStudy() {
+  renderStudyPerWheel();
   document.getElementById('includeDerivedChk').checked = !!state.settings.includeDerived;
   document.getElementById('includeDerivedChk').addEventListener('change', e => {
     state.settings.includeDerived = e.target.checked;
@@ -1221,6 +1551,17 @@ function initStudy() {
   document.getElementById('speakBtn').addEventListener('click', () => {
     const w = currentWord();
     if (w) speak(w.text);
+  });
+
+  document.getElementById('sourceBtn').addEventListener('click', () => {
+    const w = currentWord();
+    if (!w) return;
+    const box = document.getElementById('sourceMeaning');
+    if (!box.hidden) { box.hidden = true; return; }
+    const parents = (w.parentIds || []).map(getWord).filter(Boolean);
+    box.innerHTML = parents.map(p =>
+      `<div style="font-weight:700;margin-bottom:4px">${esc(p.text)}</div>${sensesHTML(p)}`).join('');
+    box.hidden = false;
   });
 
   document.getElementById('tipBtn').addEventListener('click', () => {
@@ -1246,9 +1587,20 @@ function currentWord() {
   return session ? getWord(session.currentId) : null;
 }
 
+function studyPool(dirId, inc) {
+  let list;
+  if (dirId) {
+    list = wordsUnderDir(dirId, true);
+  } else {
+    list = wordList();
+  }
+  if (!inc) list = list.filter(w => w.type === 'base' || w.type === 'extension');
+  return list;
+}
+
 function updateStudyCounts() {
   const inc = !!state.settings.includeDerived;
-  const all = wordList().filter(w => inc || !w.isDerived);
+  const all = studyPool(null, inc);
   const t = todayStr();
   document.getElementById('learnCount').textContent =
     all.filter(w => !w.stats).length + ' 个新词';
@@ -1261,12 +1613,7 @@ function updateStudyCounts() {
 function startStudy(mode, opts) {
   opts = opts || {};
   const inc = opts.includeDerived !== undefined ? opts.includeDerived : !!state.settings.includeDerived;
-  let list;
-  if (opts.dirId) {
-    list = wordsUnderDir(opts.dirId, inc);
-  } else {
-    list = wordList().filter(w => inc || !w.isDerived);
-  }
+  let list = studyPool(opts.dirId, inc);
 
   const t = todayStr();
   if (mode === 'learn') list = list.filter(w => !w.stats);
@@ -1280,20 +1627,18 @@ function startStudy(mode, opts) {
   }
 
   if (mode === 'random') {
-    /* 随机背：一次从所选范围随机抽 10 个 */
-    list = shuffle(list.slice()).slice(0, 10);
-  } else if (mode === 'review') {
-    list.sort((a, b) => (a.stats.due < b.stats.due ? -1 : 1));
+    list = shuffle(list.slice()).slice(0, studyPerCount);
   } else {
-    list.sort((a, b) => (a.id < b.id ? -1 : 1));
+    list = list.slice().sort(byCreation).slice(0, studyPerCount); // 创建时间升序，截取本次数量
   }
 
   session = {
     mode: mode,
-    queue: list.map(w => w.id),  // 待学习的队列
-    currentId: null,             // 当前正在背的单词
-    knows: {},                   // 各单词本轮点「认识」的次数
-    worst: {},                   // 各单词本轮出现过的最差表现（0不认识/1模糊/2认识）
+    queue: list.map(w => w.id),
+    currentId: null,
+    knows: {},    // 累计「认识」次数（不认识清零，模糊不变）
+    touched: {},  // 本轮是否点过模糊/不认识（true = 需要认识满 3 次才出队）
+    worst: {},    // 本轮最差表现
     counts: [0, 0, 0],
     total: list.length,
     done: 0
@@ -1305,20 +1650,23 @@ function startStudy(mode, opts) {
 
 function renderCard() {
   const w = currentWord();
+  if (!w) return;
   const k = session.knows[w.id] || 0;
+  const need = session.touched[w.id] ? 3 : 2;
   document.getElementById('studyProgress').textContent =
-    `已完成 ${session.done}/${session.total} · 队列剩 ${session.queue.length + 1} · 本词认识 ${k}/3`;
-
-  const tag = document.getElementById('cardTag');
-  if (w.isDerived) {
-    const p = getWord(w.parentWordId);
-    tag.hidden = false;
-    tag.textContent = p ? `派生词 · 来自 ${p.text}` : '派生词';
-  } else {
-    tag.hidden = true;
-  }
+    `已完成 ${session.done}/${session.total} · 队列剩 ${session.queue.length + 1} · 认识进度 ${k}/${need}`;
 
   document.getElementById('cardWord').textContent = w.text;
+
+  const parents = (w.parentIds || []).map(getWord).filter(Boolean);
+  const srcBtn = document.getElementById('sourceBtn');
+  if (parents.length) {
+    srcBtn.hidden = false;
+    srcBtn.textContent = '来自 ' + parents.map(p => p.text).join('、');
+  } else {
+    srcBtn.hidden = true;
+  }
+  document.getElementById('sourceMeaning').hidden = true;
 
   const tipBox = document.getElementById('tipBox');
   tipBox.hidden = true;
@@ -1333,7 +1681,7 @@ function renderCard() {
   document.getElementById('gradeRow').hidden = false;
 }
 
-/* 第一次点击：只显示释义，不计成绩；第二次点击：按该按钮处理并跳下一个 */
+/* 第一次点击：只显示释义；第二次点击：按该按钮处理并跳下一个 */
 function gradeClick(r) {
   const w = currentWord();
   if (!w) return;
@@ -1350,25 +1698,32 @@ function applyGrade(r) {
   const w = currentWord();
   if (!w) return;
   const id = w.id;
-  /* 记录本轮最差表现，完成后按最差表现计算艾宾浩斯 */
+  session.counts[r]++;
   if (session.worst[id] === undefined || r < session.worst[id]) session.worst[id] = r;
+
+  /* 规则：
+     - 本轮没点过模糊/不认识 → 点 2 次认识即出队
+     - 本轮点过模糊或不认识   → 必须累计点 3 次认识才出队（模糊不加不减，不认识清零） */
+  const need = session.touched[id] ? 3 : 2;
 
   if (r === 2) {
     session.knows[id] = (session.knows[id] || 0) + 1;
-    if (session.knows[id] >= 3) {
-      /* 点满三次认识：移出队列，认识数 +1，按最差表现写入复习计划 */
-      reviewWord(w, session.worst[id]);
+    if (session.knows[id] >= need) {
+      if (session.mode !== 'random') reviewWord(w, session.worst[id]);
       session.done++;
-      session.counts[2]++;
       delete session.knows[id];
+      delete session.touched[id];
       delete session.worst[id];
     } else {
       session.queue.push(id);
     }
+  } else if (r === 1) {
+    session.touched[id] = true; /* 模糊：进度不变，但需认识 3 次 */
+    session.queue.push(id);
   } else {
-    session.counts[r]++;
-    if (r === 0) session.knows[id] = 0; /* 不认识：认识次数归零 */
-    session.queue.push(id);             /* 模糊/不认识：排到队尾 */
+    session.touched[id] = true;
+    session.knows[id] = 0;      /* 不认识：认识进度清零 */
+    session.queue.push(id);
   }
 
   nextWord();
@@ -1383,9 +1738,12 @@ function nextWord() {
 function showDone() {
   showStudyView('done');
   const b = session.counts[0], m = session.counts[1], g = session.counts[2];
+  const planNote = session.mode === 'random'
+    ? '随机背不改变复习计划。'
+    : '完成的单词已按艾宾浩斯曲线更新复习计划。';
   document.getElementById('doneStats').innerHTML =
     `<p class="done-line"><span class="good-t">认识 ${g}</span><span class="mid-t">模糊 ${m}</span><span class="bad-t">不认识 ${b}</span></p>
-     <p class="hint">本轮完成 ${session.done}/${session.total} 个单词，已按艾宾浩斯曲线更新复习计划。</p>`;
+     <p class="hint">本轮完成 ${session.done}/${session.total} 个单词。${planNote}</p>`;
   session = null;
 }
 
@@ -1420,12 +1778,13 @@ function refreshAll() {
   updateStudyCounts();
 }
 
-function initApp() {
-  loadState();
+async function initApp() {
+  await loadState();
   document.getElementById('storageWarn').hidden = storageOK;
   initEntry();
   initLibrary();
   initStudy();
+  resetWordForm();
 
   document.getElementById('tabbar').addEventListener('click', e => {
     const btn = e.target.closest('.tab');
@@ -1434,7 +1793,7 @@ function initApp() {
   });
 
   switchTabTo('page-entry');
-  preloadVoices();
+  if ('speechSynthesis' in window) speechSynthesis.getVoices();
 }
 
 document.addEventListener('DOMContentLoaded', initApp);
